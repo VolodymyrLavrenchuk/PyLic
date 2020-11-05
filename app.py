@@ -9,7 +9,7 @@ import json
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
-req = glob.glob("/DMP/dockerfile/**/requirements.txt", recursive=True)
+req = glob.glob("/project/**/requirements.txt", recursive=True)
 
 install("pipenv")
 install("pip-licenses")
@@ -28,4 +28,4 @@ for r in req:
 	
 	subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", r])
 	
-subprocess.check_call([sys.executable, "-m", "pipenv", "run", "pip-licenses", "--order=license", "--format=markdown", "--ignore-packages"] + ignore)
+subprocess.check_call([sys.executable, "-m", "pipenv", "run", "pip-licenses", "--order=license", "--format=csv", "--output-file=/project/licenses.csv", "--ignore-packages"] + ignore)
